@@ -1,0 +1,516 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.fi-icons{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.top-navbar{
+    box-shadow: 1px 1px 6px white;
+    background-color: white;
+    padding-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    width: 100%;
+    height: 70px;
+}
+
+.search-input{
+    margin: 4px;
+    border: none;
+    width: 90%;
+}
+.search-input:focus{
+    outline: none;
+}
+.input-container{
+    display: flex;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.search-result{
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    width: 50%;
+    color:white;
+    z-index: 2;
+    box-shadow: 0px 0px 20px black;
+}
+
+.search-result-image{
+    width: 50px;
+    height: 50px;
+    border-radius: 3px;
+}
+
+.left-icons{
+    margin-left: 10px;
+}
+
+.right-icons{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.fi-icon-search{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.category-container{
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+}
+
+.category-image{
+    margin-top: 20px;
+    width:  70px;
+    height: 70px;
+    cursor: pointer;
+}
+
+.cart-items{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    background-color: lightslategray;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top:10px;
+    left:72px;
+    border-radius: 50%;
+}
+
+.right-navbar{
+    padding-top: 40px;
+    text-align: center;
+    color: white;
+    z-index: 2;
+    position: fixed;
+    top:0;
+    left: -300px;
+    height: 100%;
+    width: 300px;
+    transition: 700ms;
+}
+
+.f-big{
+    font-size: 24px;
+}
+.f-big:hover{
+    background-color: white;
+    color:black;
+}
+
+.c-pointer{
+    cursor: pointer;
+    padding: 10px 0;
+}
+.c-pointer:hover{
+    background-color: white;
+    color:black
+}
+
+.products-container{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap: 5px;
+}
+
+.single-product-container{
+    display: flex;
+    border: 2px solid lightgray;
+    border-radius: 12px;
+    justify-content: space-between;
+    padding-right: 7px;
+}
+
+.product-image{
+    width:  150px;
+    height: 150px;
+    border-radius: 10px;
+}
+
+.products-btn{
+    margin-top: 57px;
+}
+
+.product-detail-container{    
+    direction: rtl;
+}
+
+.footer-container{
+    margin-top: 100px;
+    background-color: rgb(41, 41, 41);
+    color: white;
+    direction: rtl;
+    box-shadow: 0 0 12px darkred;
+}
+
+.footer-topic{
+    padding-top: 20px;
+    text-align: center;
+}
+
+.me-image{
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+}
+
+.introdosing{
+    padding: 30px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+}
+
+.introdosing-me{
+    display: flex;
+    border: 1px solid lightslategrey ;
+    border-radius: 20px;
+    box-shadow: 0 0 4px lightslategray;
+}
+
+.product-detail-img-container{
+    position: absolute;
+    top: 130px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.product-detail-img{
+    width:  350px;
+    height: 300px;
+    border-radius: 10px;
+}
+
+.arrow-left{
+    color: white;
+    width: 50px;
+    height: 50px;
+}
+
+.hachure{
+    opacity: 30%;
+    background-image: repeating-linear-gradient(-45deg,black,white 25px);
+    width: 100%;
+    height: 320px;
+    box-shadow: 0px 0px 30px white;
+}
+
+.product-overview{
+    text-align: center;
+    margin: 30px 50px;
+    color:white;
+}
+
+.price{
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 3px;
+    color: white;
+}
+
+.simlar-review{
+    color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    direction: rtl;
+}
+
+.addcart-review-price{
+    display: flex;
+    justify-content: space-around;
+}
+
+.register-container{
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    background-color: lightslategrey;
+    margin-top: 80px;
+    padding: 40px;
+    width: 90%;
+    box-shadow: 0px 0px 10px white;
+    height: 490px;
+    border-radius: 5px;
+}
+
+.register-input-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.register-input{
+    width: 90%;
+    height: 40px;
+}
+
+.register-textarea{
+    width: 100%;
+}
+
+.register-input:focus{
+    box-shadow: 0px 0px 8px red;
+}
+
+.address-submit-container{
+    margin: 25px 60px;
+}
+
+.register-submit-container{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.login-container{
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    background-color: lightcoral;
+    margin-top: 80px;
+    padding: 40px;
+    width: 90%;
+    height: 490px;
+    box-shadow: 0px 0px 10px rgb(180, 60, 60);
+    border-radius: 5px;
+    display: none;
+}
+
+.login-input-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 20px;
+}
+
+.login-input{
+    width: 100%;
+    height: 40px;
+}
+
+.login-input:focus{
+    box-shadow: 0px 0px 8px cyan;
+}
+
+.login-submit-container{
+    margin-top: 170px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.fi-user{
+    width: 70px;
+    height: 70px;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    box-shadow: 6px 6px 4px black;
+}
+
+.user-info-container{
+    margin: 15px 50px;
+    color: white;
+    display: flex;
+}
+
+.user-info{
+    margin: 0 10px;
+}
+
+.edit-info-btn{
+    position: absolute;
+    top:85px;
+    right: 10px;
+}
+
+.edit-submit-container{
+    position: absolute;
+    top:415px;
+    left:50px;
+
+}
+
+.empty{
+    height: 200px;
+}
+
+.cart-items-container{
+    background-color: lightgrey;
+    margin: 10px 70px;
+    border-radius: 3px;
+    box-shadow: 0 0 4px white;
+}
+
+.cart-orders{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+
+.cart-image{
+    width: 70px;
+    height: 70px;
+    border-radius: 3px;
+}
+
+.cart-total-pay{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+
+.buyed-items-container{
+    background-color: white;
+    position: absolute;
+    top:0;
+    left:-350px;
+    height: 100vh;
+    min-height: 100vh;
+    width: 350px;
+    z-index: 2;
+    transition: 1s;
+}
+
+.buyed-item-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 5px 10px;
+}
+
+.payed-order-time{
+    display: flex;
+    justify-content: right;
+    margin: 10px 50px;
+}
+
+.payed-order-time-in{
+    font-size: 18px;
+    padding: 2px 7px 2px 5px;
+    border: 1px solid cyan ;
+    color: cyan;
+    width: fit-content;
+    border-radius: 5px; 
+}
+
+.payed-order-time-in:hover{
+    background-color: cyan;
+    color: black;
+}
+
+.payed-products-container{
+    margin: 0 50px;
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+    box-shadow: 0px 0px 5px white;
+    background-color: rgb(62, 62, 62);
+}
+
+.payed-products{
+    position: relative;
+    max-width: 500px;
+}
+
+.payed-img{
+    width: 70px;
+    margin: 5px;
+    height: 70px;
+    border-radius: 3px;
+}
+
+.slider{
+    display: flex;
+    justify-content: left;
+    overflow-x: auto;
+}
+
+
+
+
+@media screen and (width<1215px) {
+    .products-container{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-gap: 5px;
+    }      
+}
+
+@media screen and (width<910px) {
+    .products-container{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-gap: 5px;
+    }      
+    .product-image{
+        width: 125px;
+        height: 125px;
+    }
+    .products-btn{
+        margin-top: 32px;
+    }
+}
+
+@media screen and (width<603px) {
+    .products-container{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 5px;
+    }
+    .product-image{
+        width: 100px;
+        height: 100px;
+    }
+    .products-btn{
+        margin-top: 7px;
+    }
+    .introdosing{
+        display: block;
+    }
+    .responsive-me{
+        margin-top: 20px;
+    }
+    .register-container{
+        padding: 10px;
+    }
+    .login-container{
+        padding: 10px;
+    }
+    .fi-user{
+        width: 70px;
+        height: 70px;
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+        box-shadow: 6px 6px 4px black;
+    }
+    
+    .user-info-container{
+        margin: 15px 50px;
+        color: white;
+        text-align: center;
+        display: block;
+    }
+    .edit-info-btn{
+        position: relative;
+        display: block;
+        top: 10px;
+        left:10px;
+    }
+    .payed-products{
+        max-width: 270px;
+    }
+}
