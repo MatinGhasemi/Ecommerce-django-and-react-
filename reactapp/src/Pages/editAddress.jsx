@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate,Link } from "react-router-dom";
 
-import csrftoken from '../components/csrftoken';
+import csrftoken from "../components/csrftoken";
 
 
 const EditAddress = () => {

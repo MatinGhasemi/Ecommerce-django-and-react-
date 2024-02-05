@@ -17,7 +17,6 @@ const Footer = () => {
                             <div className='mb-3 responsive-me'>برنامه نویس ارشد</div>
                             <div className='introdosing-me'>
                                 <img className='me-image' src={require('../images/me.jpg')} alt="" />
-                                <div><b>میتن قاسمی</b></div>
                                 <div>متین قاسمی هستم علاقه مند به برنامه نویسی تخصص من در برنامه نویسی سمت سرور است همچنین در رمینه سمت کاربر نیز درحال یادگیری هستم </div>
                             </div>
                         </div>

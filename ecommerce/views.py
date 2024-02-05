@@ -90,16 +90,16 @@ class Register(APIView):
             username=form.cleaned_data['username']
             telephone=form.cleaned_data['telephone']
             email = form.cleaned_data['email']
-            password=form.cleaned_data['password']
+            password=form.cleaned_data['password1']
 
             user = authenticate(username=username,email=email,telephone=telephone,password=password)
             if user is not None:
                 login(self.request,user)
-                return Response({ 'redirect':'/add/useraddress/' })
+                return Response({ 'success':'user successfully added !' })
             else:
                 return Response({ 'error':'somthing went wrong !' })
 
-        return Response(form.errors)
+        return Response({'error' : form.errors})
 
 
 class Login(APIView):
@@ -111,9 +111,9 @@ class Login(APIView):
         user = authenticate(username=username,password=password)
         if user is not None:
             login(request,user)
-            return Response({ 'redirect':'/accounts/' })
+            return Response({ 'success':'Login Successfully !' })
 
-        return Response({ 'error':'Username or Password is incorect' })
+        return Response({ 'error': {'error':'Username or Password is incorect'} })
 
 
 class AddUserAddress(APIView):
@@ -143,7 +143,7 @@ class AddUserAddress(APIView):
             return Response({ 'success':'user address successfuly saved' })
         
         except:
-            return Response({ 'error':'somthing went wrong !' })
+            return Response({ 'error': 'make sure enter all the values correctly' })
 
 
 class EditUserAddress(APIView):
@@ -177,7 +177,7 @@ class EditUserAddress(APIView):
             return Response({ 'success':'Changed Successfully' })
         
         except:
-            return Response({ 'error':'somthing wrong !' })
+            return Response({ 'error':'Make Sure Enter A correct Value !' })
 
 
 class Cart(APIView):            

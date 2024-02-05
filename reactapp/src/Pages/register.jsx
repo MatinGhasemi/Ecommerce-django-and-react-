@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate,Link } from "react-router-dom";
 import csrftoken from "../components/csrfToken";
 
@@ -7,6 +7,8 @@ import { FiArrowLeft } from "react-icons/fi";
 
 
 const Register = () => {
+    const [response,setResponse] = useState(null);
+
     const redirect = useNavigate();
 
     const first_name = useRef();
@@ -23,6 +25,9 @@ const Register = () => {
     const RegisterContainer = useRef();
 
 
+    useEffect(()=>{},[])
+
+
     const submitRegister = async(e)=>{
         e.preventDefault();
         const formData = new FormData();
@@ -31,8 +36,7 @@ const Register = () => {
         formData.append('username',username.current.value);
         formData.append('email',email.current.value);
         formData.append('telephone',telephone.current.value);
-        formData.append('password',password.current.value);
-        formData.append('password1',re_password.current.value);
+        formData.append('password1',password.current.value);
         formData.append('password2',re_password.current.value);
 
         const response = await axios({
@@ -45,9 +49,14 @@ const Register = () => {
                 'X-CSRFToken':csrftoken
               },
         });
-        if (response.data.redirect){
-            return redirect(`${response.data.redirect}`)
+
+        console.log(response.data)
+        if (response.data.success){
+            return redirect('/add/useraddress/')
+        }else if (response.data.error){
+            setResponse(response.data.error)
         }
+        
     }
 
     const submitLogin = async(e)=>{
@@ -58,8 +67,11 @@ const Register = () => {
             'Content-Type':'application/json',
             'X-CSRFToken':csrftoken
         }});
-        if (response.data.redirect){
-            return redirect(`${response.data.redirect}`);
+        
+        if (response.data.success){
+            return redirect('/accounts/')
+        }else if (response.data.error){
+            setResponse(response.data.error)
         }
     }
 
@@ -74,10 +86,26 @@ const Register = () => {
         LoginContainer.current.style.display = 'none';
     }
 
+    const error = ()=>{
+        if (response != null){
+            return (
+                <div className="alert alert-danger mx-5">
+                    {response.email ? <div>email : {response.email}</div> : <div className="d-none"></div>}
+                    {response.username ? <div>username : {response.username}</div> : <div className="d-none"></div>}
+                    {response.telephone ? <div>telephone : {response.telephone}</div> : <div className="d-none"></div>}
+                    {response.password1 ? <div>password1 : {response.password1}</div> : <div className="d-none"></div>}
+                    {response.password2 ? <div>password2 : {response.password2}</div> : <div className="d-none"></div>}
+                    {response.error ? <div>{response.error}</div> : <div className="d-none"></div>}
+                </div>
+            )
+        }
+    }
+
 
     return ( 
         <>
             <Link to={'/'} ><FiArrowLeft className='arrow-left'/></Link>
+            {error()}
             <div ref={RegisterContainer} className="register-container">
                 <form onSubmit={e=>submitRegister(e)}>
                     <div className="register-input-container">
