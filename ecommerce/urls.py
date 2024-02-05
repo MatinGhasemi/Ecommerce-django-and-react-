@@ -14,6 +14,8 @@ urlpatterns = [
     path('api/ecommerce/add/useraddress/',views.AddUserAddress.as_view()),
     path('api/ecommerce/edit/useraddress/',views.EditUserAddress.as_view()),
     path('api/ecommerce/cart/',views.Cart.as_view()),
+    path('api/ecommece/addcomment/<int:id>/',views.Comment.as_view()),
+    path('api/ecommerce/product/related/categoty/<int:id>/',views.RelatedCategory.as_view()),
 
 
     path('',views.HomePageView.as_view()),

@@ -7,7 +7,7 @@ from . import models
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Product
-        fields = ['id','name','price','overview','imageURL','product_exists','create_at']
+        fields = ['id','name','category','price','overview','imageURL','product_exists','create_at']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -66,3 +66,9 @@ class PaymentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Payment
         fields = ['id','user','cart','payed','buyed_time']
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Comment
+        fields = '__all__'

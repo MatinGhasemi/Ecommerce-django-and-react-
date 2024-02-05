@@ -25,9 +25,6 @@ const Register = () => {
     const RegisterContainer = useRef();
 
 
-    useEffect(()=>{},[])
-
-
     const submitRegister = async(e)=>{
         e.preventDefault();
         const formData = new FormData();
@@ -50,7 +47,6 @@ const Register = () => {
               },
         });
 
-        console.log(response.data)
         if (response.data.success){
             return redirect('/add/useraddress/')
         }else if (response.data.error){

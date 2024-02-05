@@ -58,6 +58,15 @@ class Category(APIView):
         return Response({'products':serializer.data,'user':user})
 
 
+class RelatedCategory(APIView):
+    def get(self,request,id):
+        product = models.Product.objects.get(id=id)
+        category = models.Product.objects.filter(category=product.category).order_by('-create_at')[:8]
+        serializer = serializers.ProductSerializer(category,many=True)
+
+        return Response(serializer.data)
+
+
 class Accounts(APIView):
     def get(self,request):
         user = self.request.user
@@ -263,6 +272,22 @@ class Cart(APIView):
         except:
             return Response({ 'error':'somthing went Wrong !' },status=status.HTTP_403_FORBIDDEN)
 
+
+class Comment(APIView):
+    def get(self,request,id):
+        product = models.Product.objects.get(id=id)
+        comment = models.Comment.objects.filter(product=product , verified=True).order_by('-create_time')[:4]
+        serializer = serializers.CommentSerializer(comment,many=True)
+
+        return Response(serializer.data)
+
+    def post(self,request,id):
+        form = forms.CommentForm(request.data)
+        if form.is_valid():
+            form.save()
+            return Response({'success':'نظر شما پس از تایید ادمین نمایش داده میشود'},status=status.HTTP_200_OK)
+        else:
+            return Response({'error':form.errors})
 
 
 

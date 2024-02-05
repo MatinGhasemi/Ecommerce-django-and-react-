@@ -447,8 +447,94 @@ body{
     overflow-x: auto;
 }
 
+.handmade-modal{
+    position: fixed;
+    background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
+    display: none;
+    z-index: 2;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    transition: 1s;
+}
 
+.comment-form{
+    color: white;
+    direction: rtl;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 40px;
+    width: 90%;
+}
+.comment-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.comment-label{
+    text-align: center;
+}
+.input{
+    width: 100%;
+}
+.input-area{
+    width: 100%;
+}
+.input:focus{
+    outline: none;
+    box-shadow: 0 0 6px white;
+}
+.input-area:focus{
+    outline: none;
+    box-shadow: 0 0 6px white;
+}
 
+.my-alert{
+    position: absolute;
+    top: 60px;
+    width: 90%;
+    left : 50%;
+    transform: translateX(-50%);
+    padding: 8px 25px;
+    z-index: 3;
+    border-radius: 8px;
+    direction: rtl;
+}
+.success{
+    background-color: lightgreen;
+}
+.error{
+    background-color: lightcoral;
+}
+
+.review{
+    margin: 10px;
+    border-radius: 4px;
+    color: black;
+    background-color: white;
+    box-shadow: 0 0 2px black;
+    height: 280px;
+    overflow-y: auto;
+}
+
+.simlar{
+    margin: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 0 2px black;
+    height: 280px;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap: 10px;
+}
+.simlar-img{
+    width: 125px;
+    height: 125px;
+    border-radius: 3px;
+}
 
 @media screen and (width<1215px) {
     .products-container{
@@ -470,6 +556,19 @@ body{
     }
     .products-btn{
         margin-top: 32px;
+    }
+    .simlar-review{
+        display: block;
+    }
+}
+
+@media screen and (width<700px) {
+    .simlar-img{
+        width: 100px;
+        height: 100px;
+    }
+    .simlar{
+        grid-gap: 0;
     }
 }
 
@@ -506,7 +605,6 @@ body{
         border-radius: 5px;
         box-shadow: 6px 6px 4px black;
     }
-    
     .user-info-container{
         margin: 15px 50px;
         color: white;
@@ -521,5 +619,25 @@ body{
     }
     .payed-products{
         max-width: 270px;
+    }
+    .comment-container{
+        display: block;
+    }
+    .comment-label{
+        display: none;
+    }
+    .input{
+        width: 85%
+    }
+    .simlar-img{
+        width: 75px;
+        height: 75px;
+    }
+    .simlar{
+        grid-gap: 10px;
+        height: 180px;
+    }
+    .review{
+        height: 180px;
     }
 }

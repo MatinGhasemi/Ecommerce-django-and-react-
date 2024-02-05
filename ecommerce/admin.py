@@ -32,3 +32,7 @@ class OrderItemAdmin(admin.ModelAdmin):
 @admin.register(models.Payment)
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ['user','cart','payed','buyed_time']
+
+@admin.register(models.Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['name','email','shortcomment']

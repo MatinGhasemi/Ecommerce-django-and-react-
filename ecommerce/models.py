@@ -110,3 +110,15 @@ class Payment(models.Model):
     payed = models.BooleanField(default=False)
     buyed_time = models.DateTimeField(auto_now_add=True)
 
+
+class Comment(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,related_name='comment')
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=255)
+    comment = models.TextField(max_length=1000)
+    create_time = models.DateTimeField(auto_now_add=True)
+    verified = models.BooleanField(default=False)
+
+    @property
+    def shortcomment(self):
+        return self.comment[:20]
