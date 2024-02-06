@@ -41,14 +41,22 @@ const TopNavbar = () => {
   }
 
 
+  const instagram = ()=>{
+    window.open('https://www.instagram.com/g_matin82?utm_source=qr&igsh=NGJmYmluaWFpaWdp','_blank', 'rel=noopener noreferrer')
+  }
+  const telegram = ()=>{
+    window.open('https://t.me/g_matin82','_blank', 'rel=noopener noreferrer')
+  }
+
   return (
     <>
       <div className="top-navbar">
         <div ref={cartNumber} className="cart-items">0</div>
         <div className="left-icons"><FiAlignJustify onClick={openBar} className="fi-icons"/><Link to={'/accounts/cart/'}><FiShoppingCart className="mx-2 text-dark fi-icons"/></Link></div>
         <div className="input-container"><input ref={Input} className="search-input" onChange={e => searchProduct(e)} type="text" placeholder="Search ..." /><div className="fi-icon-search"><FiSearch className="fi-icons"/></div></div>
-        <div className="right-icons"><FiInstagram className="fi-icons mx-2"/><FiYoutube className="fi-icons"/><FiSend className="fi-icons mx-2"/></div>
+        <div className="right-icons"><FiInstagram onClick={instagram} className="fi-icons mx-2"/><FiYoutube className="fi-icons"/><FiSend onClick={telegram} className="fi-icons mx-2"/></div>
       </div>
+      <br /><br /><br />
       <div className="search-result bg-dark">
         {product.map((p)=>{
           return(

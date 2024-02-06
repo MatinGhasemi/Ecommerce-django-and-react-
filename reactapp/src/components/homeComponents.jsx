@@ -40,8 +40,22 @@ const HomeComponents = () => {
                 <div className='text-white'>خانه و آشپزخانه</div>
                 <div className='text-white'>زیبایی و سلامت</div>
                 <div className='text-white'>مد و پوشاک</div>
-                <div className='text-white'>موبایل</div>
+                <div className='text-white'>دیجیتال</div>
                 <div className='text-white'>خودرو و موتورسیکلت</div>
+            </div>
+            <br />
+            <br />
+            <div className='news-container'>
+              <div className='news'>
+                <div className='news-img-container'><img className='pointer news-img' src="https://images-na.ssl-images-amazon.com/images/I/713xlrTR2AL._SL1500_.jpg" alt="" /></div>
+                <div className='news-img-container'><img className='pointer news-img' src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Varjin.jpg/284px-Varjin.jpg" alt="" /></div>
+                <div className='news-img-container'><img className='pointer news-img' src="https://hedisha.com/wp-content/uploads/2024/01/mkl-510x510.jpg" alt="" /></div>
+              </div>
+              <div className="news">
+                <div>باشگاه خونگی</div>
+                <div>کوهنوردی</div>
+                <div>کادو ولنتاین</div>
+              </div>
             </div>
         </>
      );

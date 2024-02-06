@@ -14,6 +14,9 @@ body{
 }
 
 .top-navbar{
+    position: fixed;
+    top: 0;
+    z-index: 3;
     box-shadow: 1px 1px 6px white;
     background-color: grey;
     padding-top: 15px;
@@ -51,7 +54,7 @@ body{
     translate: -50%;
     width: 50%;
     color:white;
-    z-index: 2;
+    z-index: 4;
     box-shadow: 0px 0px 20px black;
 }
 
@@ -59,6 +62,7 @@ body{
     width: 50px;
     height: 50px;
     border-radius: 3px;
+    object-fit: cover;
 }
 
 .left-icons{
@@ -106,7 +110,7 @@ body{
     padding-top: 40px;
     text-align: center;
     color: white;
-    z-index: 2;
+    z-index: 4;
     position: fixed;
     top:0;
     left: -300px;
@@ -151,6 +155,7 @@ body{
     width:  150px;
     height: 150px;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 .products-btn{
@@ -207,6 +212,7 @@ body{
     width:  350px;
     height: 300px;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 .arrow-left{
@@ -376,6 +382,7 @@ body{
     width: 70px;
     height: 70px;
     border-radius: 3px;
+    object-fit: cover;
 }
 
 .cart-total-pay{
@@ -439,6 +446,7 @@ body{
     margin: 5px;
     height: 70px;
     border-radius: 3px;
+    object-fit: cover;
 }
 
 .slider{
@@ -456,7 +464,6 @@ body{
     left:0;
     width: 100%;
     height: 100%;
-    transition: 1s;
 }
 
 .comment-form{
@@ -534,7 +541,40 @@ body{
     width: 125px;
     height: 125px;
     border-radius: 3px;
+    object-fit: cover;
 }
+
+.news-container{
+    position: relative;
+    margin: 10px 60px;
+    background: linear-gradient(178.6deg, rgb(20, 36, 50) 11.8%, rgb(124, 143, 161) 83.8%);
+    height: 240px;
+    border-radius: 96% 4% 97% 3% / 6% 96% 4% 94%  ;
+}
+
+.news{
+    margin: 0 60px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.news-img{
+    position: relative;
+    bottom: 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 2px;
+    object-fit: cover;
+    transition: 1s;
+}
+
+.news-img:hover{
+    bottom: 30px;
+    rotate: 360deg;
+    opacity: 70%;
+    transition: 1.5s ease-in-out;
+}
+
 
 @media screen and (width<1215px) {
     .products-container{
@@ -560,6 +600,13 @@ body{
     .simlar-review{
         display: block;
     }
+    .news-container{
+        height: 190px;
+    }
+    .news-img{
+        width: 150px;
+        height: 150px;
+    }
 }
 
 @media screen and (width<700px) {
@@ -569,6 +616,13 @@ body{
     }
     .simlar{
         grid-gap: 0;
+    }
+    .news-container{
+        height: 140px;
+    }
+    .news-img{
+        width:  100px;
+        height: 100px;
     }
 }
 
@@ -639,5 +693,18 @@ body{
     }
     .review{
         height: 180px;
+    }
+    .news-container{
+        height: 115px;
+    }
+    .news-img{
+        width:  75px;
+        height: 75px;
+    }
+    .news-container{
+        margin: 10px 20px;
+    }
+    .news{
+        margin: 0;
     }
 }
