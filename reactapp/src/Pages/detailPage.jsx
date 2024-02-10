@@ -114,7 +114,6 @@ const Detail = () => {
         Modal.current.style.display = 'none';
     }
 
-    console.log(category)
 
     return ( 
         <>  

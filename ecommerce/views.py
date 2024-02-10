@@ -19,7 +19,7 @@ class HomePage(APIView):
             user = self.request.user.username
         else:
             user = 'AnonymousUser'
-        product = models.Product.objects.all().order_by('-create_at')
+        product = models.Product.objects.all().order_by('-create_at')[:12]
         serializer = serializers.ProductSerializer(product,many=True)
         return Response({'products':serializer.data,'user':user})
 
@@ -195,7 +195,7 @@ class Cart(APIView):
         try:
             data = json.loads(request.COOKIES['cart'])
         except:
-            deta = {}
+            data = {}
 
         if user.is_authenticated:
 
