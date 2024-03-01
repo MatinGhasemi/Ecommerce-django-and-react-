@@ -27,7 +27,6 @@ const AddAddress = () => {
         }
         return cookieValue;
     }
-    const csrftoken = getCookie('csrftoken');   
 
 
     useEffect(()=>{
@@ -43,6 +42,8 @@ const AddAddress = () => {
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
+        const csrftoken = getCookie('csrftoken');
+        
         const response = await axios.post('http://127.0.0.1:8000/api/ecommerce/add/useraddress/',
         {'city':city.current.value,'post_address':postaddress.current.value,'address':address.current.value},
         {headers:{
@@ -65,22 +66,28 @@ const AddAddress = () => {
     return ( 
         <>
             {error()}
-            <div className="register-container">
+            <img src={require('../images/product world.jpg')} alt="background" className="address-background" />
+            <div className="address-container">
                 <form onSubmit={e=>handleSubmit(e)}>
-                    <div className="register-input-container">
+                    <div>
+                        <div className="text-center color-text ">Ecommerce</div>
                         <div>
-                            <div className="my-3">City</div>
-                            <div className="my-4">Postaddress</div>
-                            <div className="my-4">Address</div>
-                        </div>
-                        <div>
-                            <input ref={city} className="register-input my-1" type="text" placeholder="City"/>
-                            <input ref={postaddress} className="register-input my-1" type="text" placeholder="Postaddress"/>
-                            <textarea ref={address} className="register-textarea my-1" placeholder="Address ..." rows={4}></textarea>
+                            <div className="mx-2">City</div>
+                            <div className="address-input-container">
+                                <input ref={city} className="address-input" type="text" placeholder="City"/>
+                            </div>
+                            <div className="mx-2">Postaddress</div>
+                            <div className="address-input-container">
+                                <input ref={postaddress} className="address-input" type="text" placeholder="Postaddress"/>
+                            </div>
+                            <div className="mx-2">Address</div>
+                            <div className="address-input-container">
+                                <textarea ref={address} className="address-textarea" placeholder="Address ..." rows={4}></textarea>
+                            </div>
                         </div>
                     </div>
-                    <div className="address-submit-container">
-                        <div><input type="submit" name="register" className="btn btn-info"/></div>
+                    <div className="edit-submit-container">
+                        <div><input type="submit" name="register" className="address-btn"/></div>
                     </div>
                 </form>
             </div>

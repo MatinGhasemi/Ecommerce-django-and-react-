@@ -10,6 +10,7 @@ urlpatterns = [
     path('api/ecommerce/product/categoty/<str:category>/',views.Category.as_view()),
     path('api/ecommerce/accounts/',views.Accounts.as_view()),
     path('api/ecommerce/register/',views.Register.as_view()),
+    path('api/ecommerce/varification/',views.Varification.as_view()),
     path('api/ecommerce/login/',views.Login.as_view()),
     path('api/ecommerce/add/useraddress/',views.AddUserAddress.as_view()),
     path('api/ecommerce/edit/useraddress/',views.EditUserAddress.as_view()),

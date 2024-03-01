@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate,Link } from "react-router-dom";
 
-import {FiArrowLeft, FiUser, FiArrowDown} from 'react-icons/fi'
+import {FiArrowLeft, FiUser, FiArrowDown, FiArrowRight} from 'react-icons/fi'
 
 import TopNavbar from "../components/navbar";
 import Footer from '../components/footer';
@@ -53,20 +53,27 @@ const Accounts = () => {
             </div>
             <hr className="text-white mx-5 my-3"/>
             {noItem()}
-            <div className="text-white">
+            <div style={{color:'white',marginBottom:"400px"}}>
                 {cart && cart.map((order)=>{
                     return (
                         <>
-                            <div className="payed-order-time"><div className="payed-order-time-in"><FiArrowDown size={22}/>{order.buyed_time.slice(0,10)}</div></div>
+                            <div className="payed-order-time"><div className="payed-order-time-in"><FiArrowDown size={22}/>{order.buyed_time.slice(0,10)}<FiArrowDown size={22}/></div></div>
                             <div className="payed-products-container">
-                                <div className="payed-products">
-                                    <div className="slider">
-                                    {order.cart.orderitem_set.map((o)=>{
-                                        return (
-                                                <img className="payed-img" src={o.product.imageURL} alt="" />
-                                            )
-                                        })}
-                                    </div>
+                                <div className="slider">
+                                {order.cart.orderitem_set.map((o)=>{
+                                    return (
+                                            <Link style={{textDecoration:"none"}} to={`/product/${o.product.id}/`}>
+                                            <div className="askdoaskdo">
+                                                <div>
+                                                    <img className="payed-img" src={o.product.imageURL} alt="" />
+                                                </div>
+                                                <div className="text-center">{o.product.name}</div>
+                                                <div className="text-center">quantity = {o.quantity}</div>
+                                                <div className="text-center">total = {o.get_total}$</div>
+                                            </div>
+                                            </Link>
+                                        )
+                                    })}
                                 </div>
                             </div>
                         </> 

@@ -11,8 +11,10 @@ import csrftoken from "../components/csrfToken";
 
 
 const CategoryView = () => {
+    const [refreshItem,setRefreshItem] = useState(null);
     const [user,setUser] = useState({});
     const [product,setProduct] = useState([]);
+
     const category = useParams().category;
     
 
@@ -48,24 +50,25 @@ const CategoryView = () => {
                 'X-CSRFToken':csrftoken,
             }})
         }
+        setRefreshItem(id-10);
     }
 
     return ( 
         <>  
-            <TopNavbar />
+            <TopNavbar refresh={refreshItem}/>
             <Link to={'/'} ><FiArrowLeft className='arrow-left'/></Link>
             <div className='products-container'>
                 {product && product.map((p)=>{
                     return (
                         <>
                             <div className='single-product-container'>
-                                <Link to={`product/${p.id}`} ><img className='product-image' src={p.imageURL} alt="product" /></Link>
+                                <Link to={`/product/${p.id}/`} ><img className='product-image' src={p.imageURL} alt="product" /></Link>
                                 
                                 <div className='product-detail-container mt-2'>
                                     <div className='product-detail text-white'>{p.name}</div>
                                     <div className='product-detail text-white'>{p.price}$</div>
                                     <div className='products-btn'>
-                                        <Link onClick={e=>addCart(p.id)} className='btn btn-outline-danger'>خرید</Link><Link to={`product/${p.id}`} className='btn btn-outline-success'>مشاهده</Link>
+                                        <Link onClick={e=>addCart(p.id)} className='btn btn-outline-danger'>خرید</Link><Link to={`/product/${p.id}/`} className='btn btn-outline-success'>مشاهده</Link>
                                     </div>
                                 </div>
 

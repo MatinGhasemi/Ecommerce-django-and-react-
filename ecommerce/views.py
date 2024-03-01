@@ -4,13 +4,16 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.db.models import Q
 from django.contrib.auth import authenticate,login
+from django.core.cache import cache
+from django.conf import settings
+from django.core.mail import send_mail
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
 from . import serializers,models,forms
-
+from .tokens import varification_uuid
 
 
 class HomePage(APIView):
@@ -71,19 +74,23 @@ class Accounts(APIView):
     def get(self,request):
         user = self.request.user
         if user.is_authenticated:
-            address = models.UserAddress.objects.filter(user=user).exists()
-            if address : 
-                cart = models.Payment.objects.filter(user=user).order_by('-buyed_time')
-                useraddress = models.UserAddress.objects.get(user=user)
-                
-                serializer = serializers.UserSerializer(user)
-                serializer2 = serializers.UserAddressSerializer(useraddress)
-                serializer3 = serializers.PaymentsSerializer(cart,many=True)
-                
-                return Response({'user':serializer.data,'address':serializer2.data,'cart':serializer3.data})
+            if user.verified:
+                address = models.UserAddress.objects.filter(user=user).exists()
+                if address : 
+                    cart = models.Payment.objects.filter(user=user).order_by('-buyed_time')
+                    useraddress = models.UserAddress.objects.get(user=user)
+
+                    serializer = serializers.UserSerializer(user)
+                    serializer2 = serializers.UserAddressSerializer(useraddress)
+                    serializer3 = serializers.PaymentsSerializer(cart,many=True)
+
+                    return Response({'user':serializer.data,'address':serializer2.data,'cart':serializer3.data})
+
+                else:
+                    return Response({ 'redirect':'/add/useraddress/' })
             
             else:
-                return Response({ 'redirect':'/add/useraddress/' })
+                return Response({ 'redirect':'/accounts/register/' })
 
         else:
             return Response({ 'redirect':'/accounts/register/' })
@@ -103,6 +110,17 @@ class Register(APIView):
 
             user = authenticate(username=username,email=email,telephone=telephone,password=password)
             if user is not None:
+                code = varification_uuid()
+
+                subject = 'welcome to Ecommerce world'
+                message = f'''Hi {username}, thank you for registering in My App.
+                    your varfication is {code}'''
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [email, ]
+                send_mail( subject, message, email_from, recipient_list )
+
+                cache.set(str(username),code,120)
+
                 login(self.request,user)
                 return Response({ 'success':'user successfully added !' })
             else:
@@ -111,18 +129,53 @@ class Register(APIView):
         return Response({'error' : form.errors})
 
 
+class Varification(APIView):
+    def post(self,request):
+        try:
+            user =self.request.user
+            recive_code = self.request.data['code']
+            code = cache.get(str(user.username))
+            
+            if code == recive_code:
+                models.UserAccount.objects.filter(username=user.username).update(verified=True)
+                return Response({"success":"Successfully verified"})
+            
+            return Response({"error":"Varification Code is Not Currect !"})
+
+        except:
+            return Response({"error":"Somthing Went Wrong !"},status=status.HTTP_403_FORBIDDEN)
+
+
 class Login(APIView):
     def post(self,request):
-        data = request.data
-        username = data['username']
-        password = data['password']
+        try:
+            data = request.data
+            username = data['username']
+            password = data['password']
 
-        user = authenticate(username=username,password=password)
-        if user is not None:
-            login(request,user)
-            return Response({ 'success':'Login Successfully !' })
+            user = models.UserAccount.objects.filter(username=username)
+            email = user.first().email
+            user.update(verified=False)
 
-        return Response({ 'error': {'error':'Username or Password is incorect'} })
+            user = authenticate(username=username,password=password)
+            if user is not None:
+                code = varification_uuid()
+
+                subject = 'welcome to Ecommerce world'
+                message = f'''Hi {username}, thank you for registering in My App.
+                    your varfication is {code}'''
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [email, ]
+                send_mail( subject, message, email_from, recipient_list )
+
+                cache.set(str(username),code,120)
+
+                login(request,user)
+                return Response({ 'success':'Login Successfully !' })
+            else:
+                return Response({ 'error': {'error':'Username or Password is incorect'} })
+        except:
+            return Response({ 'error': {'error':'Username or Password is incorect'} })
 
 
 class AddUserAddress(APIView):
@@ -130,6 +183,8 @@ class AddUserAddress(APIView):
         user = self.request.user
         if not user.is_authenticated:
             return Response({ 'redirect':'/accounts/register/' })
+        if not user.verified:
+            return Response({'redirect':'/accounts/register/'})
         try:
             models.UserAddress.objects.get(user=user)
             return Response({ 'redirect':'/accounts/' })
@@ -159,18 +214,20 @@ class EditUserAddress(APIView):
     def get(self,request):
         try:
             user = self.request.user
-            useraddress = models.UserAddress.objects.get(user=user)
+            if user.verified:
+                useraddress = models.UserAddress.objects.get(user=user)
 
-            first_name = user.first_name
-            last_name = user.last_name
-            email = user.email
-            telephone = user.telephone
-            city = useraddress.city
-            post_address = useraddress.post_address
-            address = useraddress.address
+                first_name = user.first_name
+                email = user.email
+                telephone = user.telephone
+                city = useraddress.city
+                post_address = useraddress.post_address
+                address = useraddress.address
 
-            return Response({'first_name':first_name,'last_name':last_name,'email':email,
-                             'telephone':telephone,'city':city,'post_address':post_address,'address':address})
+                return Response({'first_name':first_name,'email':email,
+                                 'telephone':telephone,'city':city,'post_address':post_address,'address':address})
+            else:
+                return Response({ 'error':'somthing wrong !' })
         
         except:
             return Response({ 'error':'somthing wrong !' })
@@ -180,7 +237,7 @@ class EditUserAddress(APIView):
             data = request.data
             user = self.request.user
             models.UserAccount.objects.filter(username=user).update(
-                first_name=data['first_name'],last_name=data['last_name'],email=data['email'],telephone=data['telephone'])
+                first_name=data['first_name'],email=data['email'],telephone=data['telephone'])
             models.UserAddress.objects.filter(user=user).update(city=data['city'],post_address=data['post_address'],address=data['address'])
 
             return Response({ 'success':'Changed Successfully' })
@@ -192,13 +249,16 @@ class EditUserAddress(APIView):
 class Cart(APIView):            
     def get(self,request):
         user = self.request.user
+        
         try:
             data = json.loads(request.COOKIES['cart'])
         except:
             data = {}
 
         if user.is_authenticated:
-
+            if not user.verified:
+                return Response({"user":'notVerified'})
+        
             order,c = models.Order.objects.get_or_create(user=user,complete=False)
             
             try:
@@ -261,9 +321,12 @@ class Cart(APIView):
             return Response({ 'error':'somthing went wrong !' })
 
     def patch(self,request):
+        user = self.request.user
+        if not user.verified:
+            return Response({ 'error':'somthing went Wrong !' },status=status.HTTP_403_FORBIDDEN)
+
         try:
             data = self.request.data
-            user = self.request.user
             order = models.Order.objects.get(user=user,complete=False)
             models.Payment.objects.create(user=user,cart=order,payed=True)
             models.Order.objects.filter(user=user,complete=False).update(complete=True)

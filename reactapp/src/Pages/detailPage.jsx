@@ -12,6 +12,7 @@ import csrftoken from '../components/csrfToken';
 
 
 const Detail = () => {
+    const [refrashItem,setRefreshItem] = useState(null);
     const [user,setUser] = useState({});
     const [product,setProduct] = useState({});
     const [response,setResponse] = useState({});
@@ -40,6 +41,10 @@ const Detail = () => {
     },[id])
 
 
+    const myAlert = ()=>{
+        setResponse({});
+    }
+
     const addCart = async(id)=>{
         if (user === 'AnonymousUser'){
             try {
@@ -62,6 +67,7 @@ const Detail = () => {
                 'X-CSRFToken':csrftoken,
             }})
         }
+        setRefreshItem(id-10);
     }
 
 
@@ -69,6 +75,7 @@ const Detail = () => {
         if (response.success){
             return(
                 <div className="my-alert success">
+                  <FiX size={25} onClick={myAlert}/>
                   <strong>{response.success}</strong>
                 </div>
 
@@ -76,6 +83,7 @@ const Detail = () => {
         }else if (response.error){
             return (
                 <div className="my-alert error">
+                    <FiX size={25} onClick={myAlert}/>
                     {response.error.name ? <div>لطفا نام خود را به درستی وارد کنید</div> : <div className="d-none"></div>}
                     {response.error.email ? <div>لطفا ایمیل خود را به درستی وارد کنید</div> : <div className="d-none"></div>}
                     {response.error.comment ? <div>لطفا کامنت خود را به درستی وارد کنید</div> : <div className="d-none"></div>}
@@ -96,9 +104,13 @@ const Detail = () => {
         
         const formData = new FormData();
         formData.append('product',id)
-        formData.append('name',Name.current.value);
-        formData.append('email',Email.current.value);
+        formData.append('name', Name.current.value);
+        formData.append('email', Email.current.value);
         formData.append('comment',Review.current.value);
+        
+        Name.current.value = '';
+        Email.current.value = '';
+        Review.current.value = '';
 
         const response = await axios({
             url:`http://127.0.0.1:8000/api/ecommece/addcomment/${id}/`,
@@ -117,7 +129,7 @@ const Detail = () => {
 
     return ( 
         <>  
-            <TopNavbar />
+            <TopNavbar refresh={refrashItem}/>
             <div ref={Modal} className="handmade-modal">
                 <FiX className='pointer arrow-left' onClick={closeModal}/>
                 <form onSubmit={e=>addComent(e)} className='comment-form'>

@@ -19,6 +19,9 @@ const Cart = () => {
     useEffect(()=>{
         const fetchData = async()=>{
             const response = await axios.get('http://127.0.0.1:8000/api/ecommerce/cart/');
+            if (response.data.user==='notVerified'){
+                return redirect('/accounts/register/')
+            }
             setItems(response.data.orders);
             setUser(response.data.user);
         };
@@ -136,10 +139,10 @@ const Cart = () => {
 
     return ( 
         <>
-            <TopNavbar />
+            <TopNavbar refresh={change}/>
             <Link to={'/'} ><FiArrowLeft className='arrow-left'/></Link>
             {noItem()}
-            <div className="cart-items-container p-3">
+            <div style={{marginBottom:"400px"}} className="cart-items-container p-3">
                 {items.orderitem_set && items.orderitem_set.map((order)=>{return (
                     <>
                         <div className="cart-orders mx-4">

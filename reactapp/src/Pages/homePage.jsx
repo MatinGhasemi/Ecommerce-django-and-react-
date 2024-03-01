@@ -10,6 +10,7 @@ import csrftoken from '../components/csrfToken';
 
 
 const Home = () => {
+    const [refreshItem,setRefreshItem] = useState(null);
     const [products,setProducts] = useState([]);
     const [user,setUser] = useState({});
 
@@ -45,12 +46,13 @@ const Home = () => {
                 'X-CSRFToken':csrftoken,
             }})
         }
+        setRefreshItem(id-10);
     }
 
 
     return ( 
         <>
-            <TopNavbar />
+            <TopNavbar refresh={refreshItem}/>
             <HomeComponents />
             <div className='products-container'>
                 {products && products.map((product)=>{
